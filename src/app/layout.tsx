@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ja">
-      <body className={cn(notoSansJP.variable, 'font-sans')}></body>
+    <html lang="ja" className={cn(notoSansJP.variable, 'font-sans')}>
+      <body>{children}</body>
     </html>
   )
 }
