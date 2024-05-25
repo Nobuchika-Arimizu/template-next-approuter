@@ -1,0 +1,52 @@
+{
+  "name": "next-template-approuter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+    "format": "prettier --write .",
+    "check-types": "tsc --noEmit",
+    "prepare": "husky install",
+    "clean-dev": "rm -rf .next/cache/fetch-cache && npm run dev",
+    "clean-build": "rm -rf .next/cache/fetch-cache && npm run build",
+    "clean-start": "rm -rf .next/cache/fetch-cache && npm run build && npm start"
+  },
+  "dependencies": {
+    "@splidejs/react-splide": "^0.7.12",
+    "clsx": "^2.1.1",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "sass": "^1.77.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "npm run lint",
+      "npm run format",
+      "npm run lint:fix"
+    ]
+  }
+}
