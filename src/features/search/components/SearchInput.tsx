@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { searchSubmit } from '@/services/search/searchSubmit'
+import { Button } from '@/ui/button'
 
 // サーバーアクションを使用しています。
 export const SearchInput = () => {
@@ -32,9 +33,9 @@ export const SearchInput = () => {
           />
         </div>
       </div>
-      <button className="bg-theme mx-auto flex justify-center w-[20rem] h-[4rem] items-center rounded-md p-2 text-white font-bold hover:opacity-80 transition-opacity">
+      <Button className="bg-theme mx-auto flex justify-center w-[20rem] h-[4rem] items-center rounded-md p-2 text-white font-bold hover:opacity-80 transition-opacity">
         検索
-      </button>
+      </Button>
     </form>
   )
 }
