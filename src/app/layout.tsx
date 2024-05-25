@@ -1,22 +1,27 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.scss";
+import type { Metadata } from 'next'
+import { Noto_Sans_JP } from 'next/font/google'
+import './globals.scss'
+import { cn } from '@/lib/utils'
 
-const inter = Inter({ subsets: ["latin"] });
+const notoSansJP = Noto_Sans_JP({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-jp',
+})
 
 export const metadata: Metadata = {
-  title: "Next.js テンプレート",
-  description: "Next.jsのappRouter対応テンプレートです。最初は取り急ぎ状態から、随時更新していきます。",
-};
+  title: 'Next.js テンプレート',
+  description:
+    'Next.jsのappRouter対応テンプレートです。最初は取り急ぎ状態から、随時更新していきます。',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="ja">
-      <body className={inter.className}>{children}</body>
+      <body className={cn(notoSansJP.variable, 'font-sans')}></body>
     </html>
-  );
+  )
 }
