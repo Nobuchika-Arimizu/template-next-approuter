@@ -10,7 +10,7 @@
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "format": "prettier --write .",
     "check-types": "tsc --noEmit",
-    "prepare": "husky install",
+    "prepare": "husky",
     "clean-dev": "rm -rf .next/cache/fetch-cache && npm run dev",
     "clean-build": "rm -rf .next/cache/fetch-cache && npm run build",
     "clean-start": "rm -rf .next/cache/fetch-cache && npm run build && npm start"
