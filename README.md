@@ -1,8 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div id="top"></div>
 
-## Getting Started
+## 使用技術一覧
 
-First, run the development server:
+<p style="display: inline">
+  <!-- フロントエンドのフレームワーク一覧 -->
+  <img src="https://img.shields.io/badge/-Node.js-000000.svg?logo=node.js&style=for-the-badge">
+  <img src="https://img.shields.io/badge/-React-20232A.svg?style=for-the-badge&logo=react&logoColor=61DAFB">
+  <img src="https://img.shields.io/badge/-Next.js-000000.svg?logo=next.js&style=for-the-badge">
+  <img src="https://img.shields.io/badge/-TailwindCSS-000000.svg?logo=tailwindcss&style=for-the-badge">
+</p>
+
+## 目次
+
+1. [リポジトリについて](#リポジトリについて)
+2. [環境](#環境)
+3. [概要](#概要)
+4. [ディレクトリ構成](#ディレクトリ構成)
+
+<!-- リポジトリについて -->
+
+## リポジトリについて
+
+Next.js Approuter版のテンプレート
+
+## 環境
+
+| 言語・フレームワーク | バージョン |
+| -------------------- | ---------- |
+| React                | ^18        |
+| Next.js              | 14.2.3     |
+| tailwindcss          | ^3.4.1     |
+
+その他のパッケージのバージョンは pyproject.toml と package.json を参照してください
+
+<p align="right">(<a href="#top">トップへ</a>)</p>
+
+## 概要
+
+### - 環境立ち上げ
 
 ```bash
 npm run dev
@@ -14,23 +49,105 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<strong>
+  npm install時などにhuskyが初期化され、commit時にlintとformat、push時にtype checkが走ります。
+</strong>
+<br/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### UIライブラリ
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+UIライブラリとしてヘッドレスUIのRadixUIベースのshadcn/uiを採用しています。<br/>
+RadixUIとTailwindで作られており、カスタマイズもしやすいためプロジェクトのフロント開発速度が上昇します。<br/>
+<br/>
+[ドキュメント](https://ui.shadcn.com/docs/components/accordion)
 
-## Learn More
+```bash
+// 最後のコンポーネント名を変えることで任意のコンポーネントをインストールできます。
+npx shadcn-ui@latest add button
+```
 
-To learn more about Next.js, take a look at the following resources:
+<p>
+tailwind.config.tsファイル内に定義されているCSS変数はダークモードなど実装する際に有用なので、必要に応じで使用してください。<br/>
+必要ない場合は変数を使わなくても大丈夫ですが、shadcn/uiで変数を使用してスタイリングされているので、変数に入れている色を変えていくカスタイズの方が使いやすいかもしれません（適宜）。<br/>
+</p>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ディレクトリ構成
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+featureベースのディレクトリ構成です。<br/>
 
-## Deploy on Vercel
+- uiディレクトリにはUIコンポーネント
+- serviciesディレクトリにはサーバーアクションなどのロジック切り出し
+- hooksディレクトリにはクライアント側のロジック切り出し
+- 上記を組み合わせた「機能」としてfeaturesディレクトリ
+- app配下はルーティング
+  といったイメージです。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<!-- Treeコマンドを使ってディレクトリ構成を記載 -->
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+❯ tree -a -I "node_modules|.next|.git|.pytest_cache|static" -L 3
+
+```
+.
+├── .eslintrc.json
+├── .gitignore
+├── .husky
+│   ├── pre-commit
+│   └── pre-push
+├── .lintstagedrc.js
+├── .prettierrc
+├── .vscode
+│   ├── extensions.json
+│   └── settings.json
+├── README.md
+├── components.json
+├── next-env.d.ts
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── next.svg
+│   └── vercel.svg
+├── src
+│   ├── app
+│   │   ├── (authenticated)
+│   │   ├── (site)
+│   │   ├── favicon.ico
+│   │   ├── globals.scss
+│   │   ├── layout.tsx
+│   │   └── not-found.tsx
+│   ├── constants.ts
+│   ├── features
+│   │   ├── faq
+│   │   ├── post
+│   │   └── search
+│   ├── hooks
+│   │   └── useLockBodyScroll.ts
+│   ├── lib
+│   │   └── utils.ts
+│   ├── services
+│   │   ├── post
+│   │   └── search
+│   ├── types
+│   │   └── commontypes.ts
+│   └── ui
+│   ├── accordion
+│   ├── accordion.tsx
+│   ├── button.tsx
+│   ├── flex
+│   ├── footer
+│   ├── header
+│   ├── heading
+│   ├── loading
+│   ├── not-found
+│   └── slider
+├── tailwind.config.ts
+├── tsconfig.json
+└── tsconfig.tsbuildinfo
+```
+
+<p align="right">(<a href="#top">トップへ</a>)</p>
+
+### 動作確認
+
+http://localhost:3000 にアクセスできるか確認
