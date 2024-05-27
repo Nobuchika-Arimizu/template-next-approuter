@@ -49,12 +49,18 @@ pnpm dev
 bun dev
 ```
 
+### - 動作確認
+
+http://localhost:3000 にアクセスできるか確認
+
+### - husky
+
 <strong>
   npm install時などにhuskyが初期化され、commit時にlintとformat、push時にtype checkが走ります。
 </strong>
 <br/>
 
-### UIライブラリ
+### - UIライブラリ
 
 UIライブラリとしてヘッドレスUIのRadixUIベースのshadcn/uiを採用しています。<br/>
 RadixUIとTailwindで作られており、カスタマイズもしやすいためプロジェクトのフロント開発速度が上昇します。<br/>
@@ -147,7 +153,3 @@ featureベースのディレクトリ構成です。<br/>
 ```
 
 <p align="right">(<a href="#top">トップへ</a>)</p>
-
-### 動作確認
-
-http://localhost:3000 にアクセスできるか確認
