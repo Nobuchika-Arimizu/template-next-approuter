@@ -31,7 +31,7 @@ Next.js Approuter版のテンプレート
 | Next.js              | 14.2.3     |
 | tailwindcss          | ^3.4.1     |
 
-その他のパッケージのバージョンは pyproject.toml と package.json を参照してください
+その他のパッケージのバージョンはpackage.jsonを参照してください
 
 <p align="right">(<a href="#top">トップへ</a>)</p>
 
