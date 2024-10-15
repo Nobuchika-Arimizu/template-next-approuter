@@ -1,20 +1,23 @@
 /**
  * 動的にh1タグとh2タグを切り替えるコンポーネント
  */
-import { FC, HTMLAttributes } from 'react'
+'use client'
+import { usePathname } from 'next/navigation'
+import { FC, HTMLAttributes, useEffect, useState } from 'react'
 
 type Props = {
-  isTopPage?: boolean
   className?: string
   children: React.ReactNode
 } & HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement>
 
-export const DynamicH1Tag: FC<Props> = ({
-  isTopPage = false,
-  className = '',
-  children = null,
-  ...props
-}) => {
+export const DynamicH1Tag: FC<Props> = ({ className = '', children = null, ...props }) => {
+  // TOPページがどうか
+  const [isTopPage, setIsTopPage] = useState(false)
+  const pagePath = usePathname()
+  useEffect(() => {
+    setIsTopPage(pagePath === '/')
+  }, [pagePath])
+
   // h1タグとdivタグで分岐
   if (isTopPage) {
     return (

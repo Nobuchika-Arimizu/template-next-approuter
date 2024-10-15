@@ -1,35 +1,47 @@
-import { areaIndex, conditionIndex } from '@/features/search/constants/index-for-search'
+import { areas, prefectures, propertyType } from '@/features/search/constants/index-for-search'
 
 type Props = {
-  params: { areaId: string }
   searchParams: { [key: string]: string | undefined }
 }
 
-/**
- *
- * @memo 動作イメージだけつかむために検索パラメータからマスタ情報（index-for-search.ts）に一致するキーを表示しています
- */
-export default async function Page({ params, searchParams }: Props) {
-  const searchParamId = params.areaId
-  const searchConditionIds = searchParams.condition_ids?.split(' ') || []
+export default async function Page({ searchParams }: Props) {
+  const areaId = searchParams.area_id
+  const prefectureIds = searchParams.prefecture_ids?.split(' ') || []
+  const conditionIds = searchParams.condition_ids?.split(' ') || []
   const keywordParam = searchParams.keyword
 
-  const areaName = Object.keys(areaIndex).find((key) => areaIndex[key] === searchParamId)
+  const areaName = areas.find((a) => a.id === areaId)?.label || '不明なエリア'
 
-  const matchingConditions = searchConditionIds
-    .map((id) => {
-      const condition = Object.keys(conditionIndex).find((key) => conditionIndex[key] === id)
-      return condition ? condition : null
-    })
+  const prefectureNames = prefectureIds
+    .map((id) => prefectures.find((p) => p.id === id)?.label)
+    .filter(Boolean)
+
+  const matchingConditions = conditionIds
+    .map((id) => propertyType.find((c) => c.id === id)?.label)
     .filter(Boolean)
 
   return (
     <div className="max-w-[77rem] mx-auto mt-48">
-      <h2 className="text-center font-bold text-[2.4rem] mb-5">
-        検索文字列からパスが生成されました（URLを見てね）
-      </h2>
+      <div className="text-center mb-5">
+        <h2 className="font-bold text-[2.4rem]">
+          検索文字列からパスが生成されました（URLを見てね）
+        </h2>
+        <p>このクエリを使ってAPIを叩きます。</p>
+      </div>
       <p className="text-[2rem] mb-[2rem]">
         エリア：<span className="ml-[1em]">{areaName}</span>
+      </p>
+      <p className="text-[2rem] mb-[2rem]">
+        都道府県
+        {prefectureNames.length > 0 ? (
+          prefectureNames.map((name, index) => (
+            <span key={index} className="ml-[1em]">
+              {name}
+            </span>
+          ))
+        ) : (
+          <span className="ml-[1em]">一致なし</span>
+        )}
       </p>
       <p className="text-[2rem] mb-[2rem]">
         条件

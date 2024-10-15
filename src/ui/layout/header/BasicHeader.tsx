@@ -1,21 +1,20 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
-import { DynamicH1Tag } from '../heading/DynamicH1Tag'
+import { DynamicH1Tag } from '../../heading/DynamicH1Tag'
 import { cn } from '@/lib/utils'
+import { NextLink } from '../../link/NextLink'
+import { NextImage } from '../../image/NextImage'
+import { usePathname, useRouter } from 'next/navigation'
+import { ROUTES } from '@/features/common/routes'
 
 type Props = {
-  isTopPage?: boolean
   classNames?: string
   isFixedHeader?: boolean
 }
 
-export const BasicHeader: FC<Props> = ({
-  isTopPage = false,
-  classNames = '',
-  isFixedHeader = false,
-}) => {
+export const BasicHeader: FC<Props> = ({ classNames = '', isFixedHeader = false }) => {
   // ハンバーガーメニューの開閉状態
   const [isOpen, setIsOpen] = useState(false)
 
@@ -84,15 +83,19 @@ export const BasicHeader: FC<Props> = ({
         >
           <div className="relative z-[900]">
             <div className="flex items-center justify-between">
-              <DynamicH1Tag isTopPage={isTopPage} className="lg:mr-[2rem]">
-                {/*
-                 * 動的にh1を切り替え
-                 */}
-                <span className="mb-[0.4rem] block leading-none lg:mb-[0.8rem] lg:font-bold">
-                  <span className="flex items-end lg:mb-[1rem]">
-                    <span className="pb-[0.2rem]">ヘッダー</span>
-                  </span>
-                </span>
+              {/*
+               * 動的にh1を切り替え
+               */}
+              <DynamicH1Tag className="lg:mr-[2rem]">
+                <NextLink href={ROUTES.HOME}>
+                  <NextImage
+                    src="/images/sample/header_logo03.png"
+                    width={100}
+                    height={69}
+                    alt="ほげハウスグループ"
+                    priority
+                  />
+                </NextLink>
               </DynamicH1Tag>
 
               {infoAreaComponent}
@@ -100,38 +103,38 @@ export const BasicHeader: FC<Props> = ({
           </div>
 
           {/* ナビゲーション */}
-          <nav className={`hidden font-bold lg:mt-[2.1rem]  lg:block`}>
+          <nav className={`hidden font-bold lg:mt-[2.1rem] lg:block`}>
             <ul className="flex justify-center">
               <li>
-                <Link
-                  href="/"
+                <NextLink
+                  href={ROUTES.BUY_KYUSHU}
                   className="block px-[2.4rem] py-[0.3rem] transition-colors hover:bg-theme hover:text-white desktop:px-[3rem]"
                 >
-                  ナビリンク1
+                  買いたい
+                </NextLink>
+              </li>
+              <li className="border-l border-gray_cccccc">
+                <Link
+                  href="/sell"
+                  className="block px-[2.4rem] py-[0.3rem] transition-colors hover:bg-theme hover:text-white desktop:px-[3rem]"
+                >
+                  売りたい
                 </Link>
               </li>
               <li className="border-l border-gray_cccccc">
                 <Link
-                  href="/"
+                  href="/borrow"
                   className="block px-[2.4rem] py-[0.3rem] transition-colors hover:bg-theme hover:text-white desktop:px-[3rem]"
                 >
-                  ナビリンク2
+                  借りたい
                 </Link>
               </li>
               <li className="border-l border-gray_cccccc">
                 <Link
-                  href="/"
+                  href="/rent"
                   className="block px-[2.4rem] py-[0.3rem] transition-colors hover:bg-theme hover:text-white desktop:px-[3rem]"
                 >
-                  ナビリンク3
-                </Link>
-              </li>
-              <li className="border-l border-gray_cccccc">
-                <Link
-                  href="/"
-                  className="block px-[2.4rem] py-[0.3rem] transition-colors hover:bg-theme hover:text-white desktop:px-[3rem]"
-                >
-                  ナビリンク4
+                  賃貸運用したい
                 </Link>
               </li>
               <li className="group relative border-l border-gray_cccccc">

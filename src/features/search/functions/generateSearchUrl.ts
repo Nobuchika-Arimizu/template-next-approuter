@@ -1,25 +1,20 @@
-import { areaIndex, conditionIndex } from '../constants/index-for-search'
-
-// エリアのパース関数
-function parseArea(area: string) {
-  return areaIndex[area] || null
-}
+import { prefectures, conditions, areas } from '../constants/index-for-search'
 
 // 条件のパース関数
-export function parseConditions(conditions: string): {
+export function parseConditions(conditionsInput: string): {
   conditionIds: string[]
   otherKeywords: string[]
 } {
-  const decodeConditions = decodeURIComponent(conditions)
-
+  const decodeConditions = decodeURIComponent(conditionsInput)
   const tokens = decodeConditions.split(' ')
 
   const conditionIds: string[] = []
   const otherKeywords: string[] = []
 
   tokens.forEach((token) => {
-    if (conditionIndex[token] !== undefined) {
-      conditionIds.push(conditionIndex[token])
+    const condition = conditions.find((c) => c.label === token)
+    if (condition) {
+      conditionIds.push(condition.id)
     } else {
       otherKeywords.push(token)
     }
@@ -29,19 +24,24 @@ export function parseConditions(conditions: string): {
 }
 
 // URL生成
-export function generateSearchUrl(areaInput: string, conditionInput: string): string | null {
-  const areaId = parseArea(areaInput)
-  const { conditionIds, otherKeywords } = parseConditions(conditionInput)
-  console.log('otherKeywords', otherKeywords)
+export function generateSearchUrl(
+  areaId: string,
+  prefectureIds: string[],
+  conditionIds: string[],
+): string {
+  const params = new URLSearchParams()
 
-  if (!areaId) return null
+  if (areaId) {
+    params.append('area_id', areaId)
+  }
 
-  const conditionParam =
-    conditionIds.length > 0 ? `?condition_ids=${encodeURIComponent(conditionIds.join(' '))}` : ''
-  const keywordParam =
-    otherKeywords.length > 0
-      ? `${conditionIds.length > 0 ? '&' : '?'}keyword=${encodeURIComponent(otherKeywords.join(' '))}`
-      : ''
+  prefectureIds.forEach((id) => {
+    params.append('prefecture_ids', id)
+  })
 
-  return `/search/${areaId}/${conditionParam}${keywordParam}`
+  conditionIds.forEach((id) => {
+    params.append('condition_ids', id)
+  })
+
+  return `/buy/search/alist/?${params.toString()}`
 }

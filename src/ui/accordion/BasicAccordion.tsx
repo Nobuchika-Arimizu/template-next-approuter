@@ -2,7 +2,12 @@
 import { AccordionType } from '@/types/commontypes'
 import clsx from 'clsx'
 import { FC } from 'react'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/ui/accordion'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/ui/accordion/accordion'
 
 type Props = {
   accordionData: AccordionType[]
