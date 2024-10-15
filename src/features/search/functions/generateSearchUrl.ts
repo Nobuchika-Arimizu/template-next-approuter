@@ -1,4 +1,4 @@
-import { prefectures, conditions, areas } from '../constants/index-for-search'
+import { prefectures, propertyType, areas } from '../constants/index-for-search'
 
 // 条件のパース関数
 export function parseConditions(conditionsInput: string): {
@@ -12,7 +12,7 @@ export function parseConditions(conditionsInput: string): {
   const otherKeywords: string[] = []
 
   tokens.forEach((token) => {
-    const condition = conditions.find((c) => c.label === token)
+    const condition = propertyType.find((c) => c.label === token)
     if (condition) {
       conditionIds.push(condition.id)
     } else {
